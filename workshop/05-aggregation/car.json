@@ -180,7 +180,6 @@ GET /cars/_search
   }
 }
 
-//Return empty bucket
 GET /cars/_search
 {
   "size": 0,
@@ -189,8 +188,7 @@ GET /cars/_search
       "date_histogram": {
         "field": "sold",
         "interval": "month",
-        "format": "yyyy-MM-dd",
-        "min_doc_count": 0
+        "format": "yyyy-MM-dd"
       }
     }
   }
@@ -214,4 +212,4 @@ GET /cars/_search
       }
     }
   }
-}a
+}

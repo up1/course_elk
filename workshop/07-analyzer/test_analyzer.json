@@ -1,0 +1,24 @@
+POST _analyze
+{
+  "tokenizer": "standard",
+  "text":      "Set the shape to semi-transparent by calling set_trans(5)"
+}
+
+POST _analyze
+{
+  "analyzer": "simple",
+  "text":     "Set the shape to semi-transparent by calling set_trans(5)"
+}
+
+
+POST _analyze
+{
+  "analyzer": "whitespace",
+  "text":     "Set the shape to semi-transparent by calling set_trans(5)"
+}
+
+POST _analyze
+{
+  "analyzer": "thai",
+  "text":     "สวัสดีประเทศไทย"
+}

@@ -1,0 +1,86 @@
+# Get mapping schema of document
+GET store/_mapping/book
+
+# Dynamic mapping
+DELETE sample
+
+POST sample/doc/1
+{
+  "name": "somkiat pui"
+}
+
+POST sample/doc/2
+{
+  "name": "somkiatpui"
+}
+
+GET sample/_mapping
+
+GET sample/_search
+{
+  "query": {
+    "term": {
+      "name": {
+        "value": "somkiat"
+      }
+    }
+  }
+}
+
+# Pre-defined maping of document
+DELETE  sample
+
+PUT sample
+{
+  "mappings": {
+    "doc": {
+      "properties": {
+        "name": {
+          "type":  "keyword"
+        }
+      }
+    }
+  }
+}
+
+GET sample/_mapping
+
+GET sample/_search
+{
+  "query": {
+    "term": {
+      "name": {
+        "value": "somkiat"
+      }
+    }
+  }
+}
+
+# Disable indexing or searchable ?
+
+DELETE  sample
+
+PUT sample
+{
+  "mappings": {
+    "doc": {
+      "properties": {
+        "name": {
+          "type":  "text",
+          "index": false
+        }
+      }
+    }
+  }
+}
+
+GET sample/_search
+{
+  "query": {
+    "term": {
+      "name": {
+        "value": "somkiat"
+      }
+    }
+  }
+}
