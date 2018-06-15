@@ -1,0 +1,13 @@
+#### 1. Basic APIs ####
+GET /
+GET /_cluster/health
+GET /_cat
+GET /_cat/health?v
+GET /_cat/master?v
+GET /_cat/master?help
+GET /_cat/nodes?h=ip,port,heapPercent,name
+GET /_cat/indices?format=json&pretty
+GET /_cat/aliases?v
+GET /_cat/allocation?v
+GET /_cat/count?v
+GET /_cat/count/twitter?v

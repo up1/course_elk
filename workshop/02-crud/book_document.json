@@ -1,0 +1,265 @@
+#### Create new document ####
+
+PUT /store/book/1
+{
+  "title": "Elasticsearch: The Definitive Guide",
+  "author_name": [
+    "Clinton Gormley",
+    "Zachary Tong"
+  ],
+  "tag": [
+    "search",
+    "computer"
+  ],
+  "isbn-13": "978-1449358549",
+  "isbn-10": "1449358543",
+  "price": 44.3,
+  "page": 724,
+  "description": "A Distributed Real-Time Search and Analytics Engine",
+  "detail": "Learn how to use Elasticsearch, an open source, distributed, RESTful search engine built on top of Apache Lucene. Each chapter in this book tackles a particular facet of Elasticsearch with separate sections for beginners more advanced programmers. If you’re a beginner, advanced techniques are not required reading, but you can revisit them once you have a solid understanding of the basics."
+}
+
+PUT /store/book/2
+{
+  "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+  "author_name": [
+    " Robert C. Martin"
+  ],
+  "tag": [
+    "development",
+    "computer"
+  ],
+  "isbn-13": "000-0132350882",
+  "isbn-10": "0132350882",
+  "price": 34.16,
+  "page": 464,
+  "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees.",
+  "detail": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way."
+}
+
+#### Read documents ####
+
+GET /store/book/1
+
+GET /store/book/2
+
+
+#### Search documents with basic Search DSL ####
+
+GET /store/book/_search
+
+GET /store/book/_search?q=title:Elasticsearch
+
+GET /store/book/_search
+{
+        "query" : {
+            "match" : {
+                "title" : "Elasticsearch"
+            }
+        }
+}
+
+# Problem with Elasticsearch 6.0+
+# Reference :: https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-all-field.html
+GET /store/book/_search
+{
+        "query" : {
+            "match" : {
+                "_all" : "Elasticsearch"
+            }
+        }
+}
+
+# Search and filter !!
+GET store/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "Elasticsearch"
+          }
+        }
+      ],
+      "filter": {
+        "range": {
+          "page": {
+            "gte": 700
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# Search with phrase
+
+GET /store/book/_search
+{
+        "query" : {
+            "match_phrase" : {
+                "title" : "open source"
+            }
+} }
+
+# Search with highlight
+GET /store/book/_search
+{
+        "query" : {
+            "match_phrase" : {
+                "title" : "clean"
+        }},
+        "highlight": {
+            "fields" : {
+                "detail" : {},
+                "title" : {}
+            }
+        }
+}
+
+# Search with aggregation !!
+GET /store/book/_search
+{
+  "aggs": {
+    "all_tags": {
+      "terms": {
+        "field": "tag.keyword"
+      }
+    }
+  }
+}
+
+
+GET /store/book/_search
+{
+  "query": {
+    "match_phrase": {
+      "title": "clean"
+    }
+  },
+  "aggs": {
+    "all_tags": {
+      "terms": {
+        "field": "tag.keyword"
+      }
+    }
+  }
+}
+
+#### More operation ####
+
+#Automatic generate ID of document
+POST /store/book/
+{
+  "title": "Scrum: a Breathtakingly Brief and Agile Introduction",
+  "author_name": [
+    "Chris Sims",
+    "Hillary Louise Johnson"
+  ],
+  "tag": [
+    "scrum",
+    "agile",
+    "computer"
+  ],
+  "asin": "B007P5N8D4",
+  "price": 2.99,
+  "page": 54,
+  "description": "A pocket-sized overview of roles, artifacts and the sprint cycle, adapted from the bestsellerThe Elements of Scrum by Chris Sims & Hillary Louise Johnson ",
+  "detail": "A pocket-sized overview of roles, artifacts and the sprint cycle, adapted from the bestsellerThe Elements of Scrum by Chris Sims & Hillary Louise Johnson"
+}
+
+
+#Retrieving part of a document
+GET /store/book/1?_source=title,description
+
+#Update whole document
+PUT /store/book/123
+{
+  "title": "Update",
+  "author_name": [
+    "user1",
+    "user2"
+  ],
+  "tag": [
+    "update",
+    "book"
+  ]
+}
+
+GET /store/book/123
+
+#Partial update document
+POST /store/book/123/_update
+{
+  "doc": {
+    "title": "partial update",
+    "tag": [
+      "test",
+      "computer"
+    ],
+    "views": 0
+  }
+}
+
+#Partial update with script
+POST /store/book/123/_update
+{
+  "script": "ctx._source.views+=1"
+}
+
+POST /store/book/123/_update
+{
+  "script": {
+    "source": "ctx._source.views += params.count",
+    "lang": "painless",
+    "params": {
+      "count": 2
+    }
+  }
+}
+
+POST /store/book/123/_update
+{
+  "script": {
+    "source": "ctx._source.tag.add(params.new_tag)",
+    "lang": "painless",
+    "params": {
+      "new_tag": "search"
+    }
+  }
+}
+
+#Delete by query
+POST /store/book/_delete_by_query
+{
+  "query": {
+    "term": {
+      "tag": "search"
+    }
+  }
+}
+
+POST /store/book/_delete_by_query?scroll_size=1000
+{
+  "query": {
+    "term": {
+      "tag": "search"
+    }
+  }
+}
+
+POST /store/book/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET /store/book/_search
+{
+}
+
+#### Try to see mapping/schema of document (Learn more detail) ###
+GET /store/book/_mapping

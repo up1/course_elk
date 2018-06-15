@@ -1,0 +1,197 @@
+# Aggregation  (data + aggregation) with term aggregation
+GET /store/book/_search
+{
+  "aggs": {
+    "all_book_title": {
+      "terms": {
+        "field": "category.keyword"
+      }
+    }
+  }
+}
+
+# Show only aggregation section
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "all_book_title": {
+      "terms": {
+        "field": "category.keyword"
+      }
+    }
+  }
+}
+
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "all_book_title": {
+      "terms": {
+        "field": "category.keyword",
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  }
+}
+
+# Stats aggregation
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "all_book_title": {
+      "stats": {
+        "field": "price"
+      }
+    }
+  }
+}
+
+
+# Stats aggregation :: price stat
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_stat": {
+      "stats": {
+        "field": "price"
+      }
+    }
+  }
+}
+
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_stat": {
+      "stats": {
+        "script": "doc['price'].value"
+      }
+    }
+  }
+}
+
+# Multiple aggregation type
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "all_book_title": {
+      "terms": {
+        "field": "category.keyword"
+      }
+    },
+    "price_stat": {
+      "stats": {
+        "field": "price"
+      }
+    }
+  }
+}
+
+# Missing aggregation
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "missing_field_tags": {
+      "missing": {
+        "field": "tags"
+      }
+    }
+  }
+}
+
+# Missing aggregation with information
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "missing_field_tags": {
+      "missing": {
+        "field": "tags"
+      },
+      "aggs": {
+        "detail": {
+          "top_hits": {
+            "size": 10
+          }
+        }
+      }
+    }
+  }
+}
+
+# Price range
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_range": {
+      "range": {
+        "field": "price",
+        "ranges": [
+          {
+            "from": 0,
+            "to": 10
+          },
+          {
+            "from": 11,
+            "to": 20
+          },
+          {
+            "from": 21,
+            "to": 50
+          }
+        ]
+      }
+    }
+  }
+}
+
+
+# Order data by category
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "all_book_title": {
+      "terms": {
+        "field": "category.keyword",
+        "order": {
+          "_count": "asc"
+        }
+      }
+    }
+  }
+}
+
+
+#Multiple aggregation (bucket + metric)
+GET /store/book/_search
+{
+  "size": 0,
+  "aggs": {
+    "all_book_title": {
+      "terms": {
+        "field": "category.keyword",
+        "order": {
+          "_count": "asc"
+        }
+      },
+      "aggs": {
+        "price_stat": {
+          "stats": {
+            "field": "price"
+          }
+        }
+      }
+    }
+  }
+}
