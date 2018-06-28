@@ -1,0 +1,11 @@
+PUT /myindex/_settings
+{
+    "index.search.slowlog.threshold.query.warn: 1s",
+    "index.search.slowlog.threshold.query.info: 500ms",
+    "index.search.slowlog.threshold.query.debug: 1500ms",
+    "index.search.slowlog.threshold.query.trace: 300ms",
+    "index.search.slowlog.threshold.fetch.warn: 500ms",
+    "index.search.slowlog.threshold.fetch.info: 400ms",
+    "index.search.slowlog.threshold.fetch.debug: 300ms",
+    "index.search.slowlog.threshold.fetch.trace: 200ms"
+}

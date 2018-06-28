@@ -1,0 +1,88 @@
+https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
+# Create index
+PUT /logstash-2015.05.18
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+PUT /logstash-2015.05.18/_settings
+{
+    "index" : {
+        "refresh_interval" : "-1",
+        "number_of_replicas" : 0
+    }
+}
+
+PUT /logstash-2015.05.19
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+PUT /logstash-2015.05.19/_settings
+{
+    "index" : {
+        "refresh_interval" : "-1",
+        "number_of_replicas" : 0
+    }
+}
+
+PUT /logstash-2015.05.20
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+PUT /logstash-2015.05.20/_settings
+{
+    "index" : {
+        "refresh_interval" : "-1",
+        "number_of_replicas" : 0
+    }
+}
+
+# Indexing data
+$curl -H 'Content-Type: application/x-ndjson' -XPOST 'http://35.240.161.188:9200/_bulk?pretty' --data-binary @logs.jsonl
+{
+  "took" : 24297
+}
+
+# Config index refresh interval of index
+$curl -H 'Content-Type: application/x-ndjson' -XPOST 'http://35.240.161.188:9200/_bulk?pretty' --data-binary @logs.jsonl
+{
+  "took" : 9823
+}
