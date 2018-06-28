@@ -1,0 +1,9 @@
+node.name: master
+cluster.name: demo
+node.master: true
+node.data: false
+node.ingest: false
+search.remote.connect: false
+network.host: 0.0.0.0
+
+bootstrap.memory_lock: true

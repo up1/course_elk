@@ -1,0 +1,10 @@
+node.name: data
+cluster.name: demo
+node.master: false
+node.data: true
+node.ingest: false
+search.remote.connect: false
+network.host: 0.0.0.0
+discovery.zen.ping.unicast.hosts: ["10.148.0.2"]
+
+bootstrap.memory_lock: true

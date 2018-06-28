@@ -1,0 +1,8 @@
+# Create Master Node
+$ES_PATH_CONF=/path/to/master ./bin/elasticsearch
+
+# Create Data Node
+$ES_PATH_CONF=/path/to/data ./bin/elasticsearch
+
+# Create Query/HTTP Node
+$ES_PATH_CONF=/path/to/query ./bin/elasticsearch

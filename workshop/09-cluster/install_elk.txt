@@ -1,0 +1,32 @@
+#Ubuntu 16
+
+#1. Install Java
+$sudo apt-get update
+$sudo apt-get install default-jre
+$java -version
+
+openjdk version "1.8.0_171"
+OpenJDK Runtime Environment (build 1.8.0_171-8u171-b11-0ubuntu0.16.04.1-b11)
+OpenJDK 64-Bit Server VM (build 25.171-b11, mixed mode)
+
+#2. Install Elasticsearch
+$wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+$sudo apt-get install apt-transport-https
+$echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+$sudo apt-get update
+$sudo apt-get install elasticsearch
+
+$sudo vi /etc/elasticsearch/elasticsearch.yml
+
+$sudo service elasticsearch start
+
+$sudo tail -100f /var/log/elasticsearch/demo.log
+
+#3. Install Kibana
+$sudo apt-get install kibana
+$sudo vi /etc/kibana/kibana.yml
+server.host: "0.0.0.0"
+xpack.security.enabled: false
+$sudo service kibana start
+
+#4. Install Logstash
