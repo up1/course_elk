@@ -1,0 +1,66 @@
+# Install Elasticsearch plugin :: ingest-geoip
+$elasticsearch-plugin install ingest-geoip
+
+# Create pipeline with geoip
+PUT _ingest/pipeline/geoip
+{
+  "description": "Sample of geoip",
+  "processors": [
+    {
+      "geoip": {
+        "field": "ip"
+      }
+    }
+  ]
+}
+
+# Create pipeline with geoip (custom file)
+# Data files in ES_HOME/config/ingest-geoip/
+PUT _ingest/pipeline/geoip2
+{
+  "description": "Sample of geoip 2",
+  "processors": [
+    {
+      "geoip": {
+        "field": "ip",
+        "database_file": "GeoLite2-Country.mmdb",
+        "properties": [ "country_iso_code", "country_name", "continent_name" ]
+      }
+    }
+  ]
+}
+
+# Create document
+PUT sample/log/1?pipeline=geoip2
+{
+  "ip": "119.42.70.103"
+}
+
+# Get sample document
+GET sample/log/1
+
+# Delete document
+DELETE sample/log/1
+
+# Issue :: For low space
+PUT sample/_settings
+{
+  "index": {
+    "blocks": {
+      "read_only_allow_delete": "false"
+    }
+  }
+}
+
+
+# Remove Elasticsearch plugin :: ingest-geoip
+$elasticsearch-plugin remove ingest-geoip
+
+# Resources
+https://www.elastic.co/guide/en/elasticsearch/plugins/current/ingest-geoip.html
+https://www.elastic.co/blog/geoip-in-the-elastic-stack
+
+https://qbox.io/blog/how-to-index-geographical-location-of-ip-addresses-to-elasticsearch-5-0-1
+https://logz.io/learn/complete-guide-elk-stack/
+https://fxdata.cloud/tutorials/map-user-location-with-geoip-and-elk-elasticsearch-logstash-and-kibana
+https://www.digitalocean.com/community/tutorials/how-to-map-user-location-with-geoip-and-elk-elasticsearch-logstash-and-kibana
