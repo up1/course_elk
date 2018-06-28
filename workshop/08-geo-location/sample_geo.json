@@ -1,0 +1,165 @@
+DELETE .kibana
+
+GET _cat/indices
+
+DELETE my_map
+
+
+# Create mapping
+PUT /my_map
+{
+  "mappings": {
+    "city": {
+      "properties": {
+        "name": {
+          "type": "text"
+        },
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    }
+  }
+}
+
+GET my_map/_mapping
+
+# Index 1 :: string format (lat, lon)
+PUT /my_map/city/1
+{
+  "name" : "Bangkok",
+  "location" : "13.45, 100.35"
+}
+
+# Index 2 :: Object with lat, lon
+PUT /my_map/city/1
+{
+  "name" : "Bangkok",
+  "location" : {
+       "lat" : 13.45,
+       "lon" : 100.35
+    }
+}
+
+# Index 3 :: Array with [lon, lat]
+PUT /my_map/city/1
+{
+  "name" : "Bangkok",
+  "location" : [100.35,13.45]
+}
+
+# Index 4 :: Geohash
+PUT /my_map/city/1
+{
+  "name" : "Bangkok",
+  "location" : "w4rke82xumxr"
+}
+
+
+# Filter data with bulding box
+GET /my_map/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_bounding_box": {
+          "location": {
+            "top_left": {
+              "lat": 13.452074,
+              "lon": 100.347765
+            },
+            "bottom_right": {
+              "lat": 13.448811,
+              "lon": 100.352124
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+# Filter with indexed
+GET /my_map/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_bounding_box": {
+          "location": {
+            "top_left": {
+              "lat": 13.452074,
+              "lon": 100.347765
+            },
+            "bottom_right": {
+              "lat": 13.448811,
+              "lon": 100.352124
+            }
+          },
+          "type": "indexed"
+        }
+      }
+    }
+  }
+}
+
+
+# Filter geo distance
+GET /my_map/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+       "geo_distance": {
+         "distance": "100km",
+         "location": {
+           "lat": 13.45,
+           "lon": 100.35
+         }
+       }
+      }
+    }
+  }
+}
+
+
+# Workshop :: Sort by distance from some point
+GET /my_map/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_bounding_box": {
+          "type": "indexed",
+          "location": {
+            "top_left": {
+              "lat": 13.452074,
+              "lon": 100.347765
+            },
+            "bottom_right": {
+              "lat": 13.448811,
+              "lon": 100.352124
+            }
+          }
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "_geo_distance": {
+        "location": {
+          "lat": 13.736717,
+          "lon": 100.523186
+        },
+        "order": "asc",
+        "unit": "km",
+        "distance_type": "plane"
+      }
+    }
+  ]
+}
+
+# Resources
+https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#distance-units
