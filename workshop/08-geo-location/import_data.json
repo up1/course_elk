@@ -1,4 +1,8 @@
 # Create Index with mappings
+DELETE logstash-2015.05.18
+DELETE logstash-2015.05.19
+DELETE logstash-2015.05.20
+
 PUT /logstash-2015.05.18
 {
   "mappings": {
@@ -15,6 +19,42 @@ PUT /logstash-2015.05.18
     }
   }
 }
+
+PUT /logstash-2015.05.19
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+PUT /logstash-2015.05.20
+{
+  "mappings": {
+    "log": {
+      "properties": {
+        "geo": {
+          "properties": {
+            "coordinates": {
+              "type": "geo_point"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
 
 # Import data from file to elasticsearch
 $curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary @logs.jsonl_geoip
