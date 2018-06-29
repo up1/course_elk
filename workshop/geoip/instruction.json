@@ -31,7 +31,7 @@ PUT _ingest/pipeline/geoip2
 }
 
 # Create document
-PUT sample/log/1?pipeline=geoip2
+PUT sample/log/1?pipeline=geoip
 {
   "ip": "119.42.70.103"
 }
