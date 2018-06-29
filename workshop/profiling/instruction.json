@@ -1,0 +1,47 @@
+# Explain your query
+GET /my_map/_search
+{
+  "explain": true,
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_bounding_box": {
+          "location": {
+            "top_left": {
+              "lat": 13.452074,
+              "lon": 100.347765
+            },
+            "bottom_right": {
+              "lat": 13.448811,
+              "lon": 100.352124
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Use Profileing api
+GET /my_map/_search
+{
+  "profile": true,
+  "query": {
+    "bool": {
+      "filter": {
+        "geo_bounding_box": {
+          "location": {
+            "top_left": {
+              "lat": 13.452074,
+              "lon": 100.347765
+            },
+            "bottom_right": {
+              "lat": 13.448811,
+              "lon": 100.352124
+            }
+          }
+        }
+      }
+    }
+  }
+}
