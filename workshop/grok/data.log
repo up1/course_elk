@@ -1,0 +1,74 @@
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NX8OC9YSH 26/02/18 00:01:31 812 [RSP-REQ] service[name=StockServiceImpl] from 172.19.37.24(172.19.37.24) url[GET http://172.19.176.126:8780/nonshopsaleservice/rest/stock/shopA/MatX/count]
+GET /nonshopsaleservice/rest/stock/shopA/MatX/count
+accept: */*
+cache-control: max-age=31104000
+connection: keep-alive
+host: 172.19.176.126:8780
+user-agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.27.1 zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+via: 1.1 squaphwpr1 (squid/3.5.26)
+x-client: 172.19.129.96
+x-forwarded-for: 172.19.37.23
+
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NX8OC9YSH 26/02/18 00:01:31 823 [RSP-RES] service[name=StockServiceImpl]HTTP/1.1 200
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{  "status" : "SUCCESSFUL",  "trx-id" : "6L54NX8OC9YSH",  "process-instance" : "tmsappr10 (instance: SFF_node2)",  "response-data" : {    "shopCode" : "shopA",    "productCode" : "MatX",    "balanceQty" : 0  }}
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NY3S1S1SI 26/02/18 00:02:39 517 [RSP-REQ] service[name=StockServiceImpl] from 172.19.37.24(172.19.37.24) url[GET http://172.19.176.126:8780/nonshopsaleservice/rest/stock/shopA/MatX/count]
+GET /nonshopsaleservice/rest/stock/shopA/MatX/count
+accept: */*
+cache-control: max-age=31104000
+connection: keep-alive
+host: 172.19.176.126:8780
+user-agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.27.1 zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+via: 1.1 squaphwpr1 (squid/3.5.26)
+x-client: 172.19.129.96
+x-forwarded-for: 172.19.37.23
+
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NY3S1S1SI 26/02/18 00:02:39 524 [RSP-RES] service[name=StockServiceImpl]HTTP/1.1 200
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{  "status" : "SUCCESSFUL",  "trx-id" : "6L54NY3S1S1SI",  "process-instance" : "tmsappr10 (instance: SFF_node2)",  "response-data" : {    "shopCode" : "shopA",    "productCode" : "MatX",    "balanceQty" : 0  }}
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NZJAEVOMN 26/02/18 00:04:31 643 [RSP-REQ] service[name=StockServiceImpl] from 172.19.37.143(172.19.37.143) url[GET http://172.19.176.126:8780/nonshopsaleservice/rest/stock/shopA/MatX/count]
+GET /nonshopsaleservice/rest/stock/shopA/MatX/count
+accept: */*
+cache-control: max-stale=0
+connection: Keep-Alive
+host: 172.19.176.126:8780
+user-agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.27.1 zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+x-bluecoat-via: c3cf05c073f9b0f2
+x-client: 172.19.129.96
+x-forwarded-for: 172.19.37.23
+
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NZJAEVOMN 26/02/18 00:04:31 654 [RSP-RES] service[name=StockServiceImpl]HTTP/1.1 200
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{  "status" : "SUCCESSFUL",  "trx-id" : "6L54NZJAEVOMN",  "process-instance" : "tmsappr10 (instance: SFF_node2)",  "response-data" : {    "shopCode" : "shopA",    "productCode" : "MatX",    "balanceQty" : 0  }}
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NZL81N6FO 26/02/18 00:04:35 854 [RSP-REQ] service[name=StockServiceImpl] from 172.19.37.143(172.19.37.143) url[GET http://172.19.176.126:8780/nonshopsaleservice/rest/stock/shopA/MatX/count]
+GET /nonshopsaleservice/rest/stock/shopA/MatX/count
+accept: */*
+cache-control: max-stale=0
+connection: Keep-Alive
+host: 172.19.176.126:8780
+user-agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.27.1 zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+x-bluecoat-via: c3cf05c073f9b0f2
+x-client: 172.19.129.96
+x-forwarded-for: 172.19.37.23
+
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54NZL81N6FO 26/02/18 00:04:35 864 [RSP-RES] service[name=StockServiceImpl]HTTP/1.1 200
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{  "status" : "SUCCESSFUL",  "trx-id" : "6L54NZL81N6FO",  "process-instance" : "tmsappr10 (instance: SFF_node2)",  "response-data" : {    "shopCode" : "shopA",    "productCode" : "MatX",    "balanceQty" : 0  }}
+(http-tmsappr10/172.19.176.126:8780-5)INFO  E2EID[] 6L54O0EKSKTKE 26/02/18 00:05:39 751 [RSP-REQ] service[name=StockServiceImpl] from 172.19.37.143(172.19.37.143) url[GET http://172.19.176.126:8780/nonshopsaleservice/rest/stock/shopA/MatX/count]
+GET /nonshopsaleservice/rest/stock/shopA/MatX/count
+accept: */*
+cache-control: max-stale=0
+connection: Keep-Alive
+host: 172.19.176.126:8780
+user-agent: curl/7.19.7 (x86_64-redhat-linux-gnu) libcurl/7.19.7 NSS/3.27.1 zlib/1.2.3 libidn/1.18 libssh2/1.4.2
+x-bluecoat-via: c3cf05c073f9b0f2
+x-client: 172.19.129.96
+x-forwarded-for: 172.19.37.23
