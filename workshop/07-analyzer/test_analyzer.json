@@ -1,3 +1,5 @@
+##### Testing with Analyzer #####
+
 POST _analyze
 {
   "tokenizer": "standard",
@@ -21,4 +23,61 @@ POST _analyze
 {
   "analyzer": "thai",
   "text":     "สวัสดีประเทศไทย"
+}
+
+##### Custom mapping with Analyzer  #####
+
+PUT my_index
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "title": {
+          "type":     "text",
+          "analyzer": "standard"
+        }
+      }
+    }
+  }
+}
+
+##### Custom Analyzer #####
+PUT my_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "std_folded": { 
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "my_text": {
+          "type": "text",
+          "analyzer": "std_folded" 
+        }
+      }
+    }
+  }
+}
+
+GET my_index/_analyze 
+{
+  "analyzer": "std_folded", 
+  "text":     "Is this déjà vu?"
+}
+
+GET my_index/_analyze 
+{
+  "field": "my_text", 
+  "text":  "Is this déjà vu?"
 }
