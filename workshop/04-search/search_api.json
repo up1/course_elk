@@ -1,0 +1,27 @@
+#####  Multi-index  #####
+GET /kimchy,elasticsearch/_search?q=tag:wow
+
+GET /_all/_search?q=tag:wow
+
+#####  Count API  #####
+PUT /twitter/_doc/1?refresh
+{
+    "user": "kimchy"
+}
+
+GET /twitter/_doc/_count?q=user:kimchy
+
+GET /twitter/_doc/_count
+{
+    "query" : {
+        "term" : { "user" : "kimchy" }
+    }
+}
+
+#####  Explain API  #####
+GET /twitter/_doc/0/_explain
+{
+      "query" : {
+        "match" : { "message" : "elasticsearch" }
+      }
+}
