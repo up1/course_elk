@@ -2,3 +2,4 @@ requirement.txt
 slide/*.key
 .DS_Store
 software/
+.vscode/
