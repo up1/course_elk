@@ -1,0 +1,216 @@
+==== Step 1 :: Import data from file ====
+
+Solutions
+1. Command line
+2. Coding
+3. Logstash
+
+https://stedolan.github.io/jq/
+
+$brew install jq
+$cat plus_20181027_1540.json | jq -c '.[] | {"index": {"_index": "plus", "_type": "project", "_id": .id}}, .' | curl -XPOST localhost:9200/_bulk -H 'Content-Type: application/x-ndjson' --data-binary @-
+$cat plus_all_20181027_1540.json | jq -c '.[] | {"index": {"_index": "plus", "_type": "project", "_id": .id}}, .' | curl -XPOST localhost:9200/_bulk -H 'Content-Type: application/x-ndjson' --data-binary @-
+
+==== Step 2 :: Check mapping and data ====
+
+GET plus/_mapping
+
+GET plus/_search
+{
+  "query": {
+    "bool": {
+      "filter":   {
+        "term": {
+          "deleted": "1"
+        }
+      }
+    }
+  }
+}
+
+==== Solution ====
+1. Preprocessing data
+2. *** Custom mapping  
+3. *** Convert data with ingest
+4. Coding
+
+==== Step 3 :: Custom mapping ====
+DELETE plus
+
+PUT plus 
+{
+  "mappings": {
+    "project": { 
+      "properties": { 
+        "deleted":    { "type": "keyword"  }
+      }
+    }
+  }
+}
+
+==== Step 4 :: Convert data with ingest ====
+# Create ingest pipeline
+PUT _ingest/pipeline/convert_to_string
+{
+  "description": "convert from string into number converter",
+    "processors": [      
+      {
+        "convert": {
+          "field": "deleted",
+          "type": "integer",
+          "ignore_missing": true
+        }
+      },
+      {
+        "convert": {
+          "field": "minprice",
+          "type": "long",
+          "ignore_missing": true
+        }
+      },
+      {
+        "convert": {
+          "field": "maxprice",
+          "type": "long",
+          "ignore_missing": true
+        }
+      }
+    ]
+}
+# Get detail of pipeline
+GET _ingest/pipeline/convert_to_string
+
+# Reindex data
+POST _reindex
+{
+  "source": {
+    "index": "plus"
+  },
+  "dest": {
+    "index": "plus_2",
+    "pipeline": "convert_to_string"
+  }
+}
+
+# Try to check data
+GET plus_2/_search
+{
+  "_source": [
+    "minprice",
+    "maxprice",
+    "deleted"
+  ],
+  "query": {
+    "bool": {
+      "filter": {
+        "range": {
+          "minprice": {
+            "gte": 10
+          }
+        }
+      }
+    }
+  }
+}
+
+==== Step 5 :: Query and Booting score ====
+
+GET plus_2/_search
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "query_string": {
+          "fields": [
+            "projectnickname",
+            "projectnickname_th"
+          ],
+          "query": "*chai*"
+        }
+      },
+      "field_value_factor": {
+        "field": "deleted"
+      }
+    }
+  }
+}
+
+==== Step 6 :: Suggestion ====
+https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-ngram-tokenizer.html
+
+
+# Create custom analyzer and testing
+
+DELETE plus_suggestion
+
+PUT plus_suggestion
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "my_tokenizer",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      },
+      "tokenizer": {
+        "my_tokenizer": {
+          "type": "ngram",
+          "min_gram": 3,
+          "max_gram": 50
+        }
+      }
+    }
+  }
+}
+
+POST plus_suggestion/_analyze
+{
+  "analyzer": "autocomplete",
+  "text": "Pathumwan Place"
+}
+
+# Create index with mappings by fields
+
+PUT plus_suggestion/_mapping/project
+{
+  "project": {
+    "properties": {
+      "search_data": {
+        "type": "text",
+        "analyzer": "autocomplete"
+      },
+      "display_data": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+POST plus_suggestion/project
+{
+    "search_data": "Pathumwan Place",
+    "display_data": "Pathumwan Place"
+}
+
+# Search data with ngram
+
+GET plus_suggestion/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "search_data": {
+              "value": "pa"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
