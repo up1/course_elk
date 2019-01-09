@@ -114,6 +114,59 @@ GET plus_2/_search
 }
 
 ==== Step 5 :: Query and Booting score ====
+GET plus/_count
+
+GET plus/_mapping
+
+GET plus/_search
+{
+  "size": 30,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "fields": [
+              "projectnickname",
+              "projectnickname_th"
+            ],
+            "query": "*siri*"
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "term": {
+            "deleted": {
+              "value": "1"
+            }
+          }
+        },
+        {
+          "term": {
+            "is_stockactive": {
+              "value": "0"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "highlight": {
+    "fields": {
+      "projectnickname": {},
+      "projectnickname_th": {}
+    }
+  },
+  "_source": [
+    "projectid",
+    "projectnickname",
+    "projectnickname_th",
+    "minprice",
+    "maxprice"
+  ]
+}
+
 
 GET plus_2/_search
 {
