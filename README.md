@@ -34,6 +34,11 @@
   * Filtering aggregation
   * Histogram
   * Percentile
+* Monitoring
+* Tuning performance
+* Production configuration guideline
+  * [Elasticsearch configuration](https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html)
+  * [System configuration](https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html)
   
 ## Kibana
 * Overview
