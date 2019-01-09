@@ -43,3 +43,7 @@
 
 
 ## Logstash and Beat
+
+
+## References
+* [First version of slide and workshop](https://github.com/up1/elasticsearch_workshop)
