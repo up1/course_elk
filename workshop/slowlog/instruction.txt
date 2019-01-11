@@ -1,0 +1,53 @@
+### Workshop :: Slow query logs of Elasticserch
+
+Step 1 :: Create index with slow logs
+
+PUT testindex-slowlogs
+
+PUT /testindex-slowlogs/_settings
+{
+    "index.indexing.slowlog.threshold.index.warn": "0ms",
+    "index.indexing.slowlog.threshold.index.info": "0ms",
+    "index.indexing.slowlog.threshold.index.debug": "0ms",
+    "index.indexing.slowlog.threshold.index.trace": "0ms",
+    "index.indexing.slowlog.level": "trace",
+    "index.indexing.slowlog.source": "1000"
+}
+
+PUT /testindex-slowlogs/_settings
+{
+    "index.search.slowlog.threshold.query.warn": "0ms",
+    "index.search.slowlog.threshold.query.info": "0ms",
+    "index.search.slowlog.threshold.query.debug": "0ms",
+    "index.search.slowlog.threshold.query.trace": "0ms",
+    "index.search.slowlog.threshold.fetch.warn": "0ms",
+    "index.search.slowlog.threshold.fetch.info": "0ms",
+    "index.search.slowlog.threshold.fetch.debug": "0ms",
+    "index.search.slowlog.threshold.fetch.trace": "0ms"
+}
+
+Step 2 :: Indexing data
+
+POST /testindex-slowlogs/product
+{
+ "name": "product",
+ "price": 100
+}
+
+Step 3 :: Search data
+
+GET /testindex-slowlogs/_search
+{
+  "query": {
+    "term": {
+      "name": {
+        "value": "product"
+      }
+    }
+  }
+}
+
+Step 4 :: See log in $ELASTICSEARCH_HOME/logs/
++ elasticsearch_index_indexing_slowlog.log
++ elasticsearch_index_search_slowlog.log
+
