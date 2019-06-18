@@ -6,7 +6,6 @@
   * Logstash
   * Kibana
   * Beat
-* Use cases
 
 ## Elasticsearch
 
@@ -46,8 +45,14 @@
 * Create visualization
 * Create dashboard
 
+## Metric with Prometheous and Grafana
+* Collect metric data with [Prometheus](https://prometheus.io/)
+* Visualize data from Prometheous with [Grafana](https://grafana.com/)
+
 
 ## Logstash and Beat
+* Logstash
+* Beat
 
 
 ## References
