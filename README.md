@@ -62,6 +62,8 @@
 * Collect metric data with [Prometheus](https://prometheus.io/)
 * Visualize data from Prometheous with [Grafana](https://grafana.com/)
 
+## Workshop
+
 
 ## References
 * [First version of slide and workshop](https://github.com/up1/elasticsearch_workshop)
