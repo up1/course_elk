@@ -2,7 +2,7 @@
 DELETE /store
 PUT /store
 
-PUT /store/book/1
+PUT /store/_doc/1
 {
   "title": "Elasticsearch: The Definitive Guide",
   "author_name": [
@@ -22,7 +22,7 @@ PUT /store/book/1
   "long_description": "Learn how to use Elasticsearch, an open source, distributed, RESTful search engine built on top of Apache Lucene. Each chapter in this book tackles a particular facet of Elasticsearch with separate sections for beginners more advanced programmers. If you’re a beginner, advanced techniques are not required reading, but you can revisit them once you have a solid understanding of the basics."
 }
 
-PUT /store/book/2
+PUT /store/_doc/2
 {
   "title": "Elasticsearch Server: Second Edition",
   "author_name": [
@@ -42,7 +42,7 @@ PUT /store/book/2
   "long_description": "We all want to find the information we are looking for. This demand brings more and more tools that try to make the full-text search topic easier to understand and introduce to applications. ElasticSearch is one of those tools. It is a cluster- and cloud-aware, high-performance, open source search server. It is written in Java and runs as a standalone full-text search server. ElasticSearch uses the Lucene Java search library at its core for full-text indexing and search, and has REST-like HTTP and JSON APIs that make it easy to use from virtually any programming language. ElasticSearch is a fast, very scalable, and easy-to-use search engine that is enjoyable to use and work with."
 }
 
-PUT /store/book/3
+PUT /store/_doc/3
 {
   "title": "ElasticSearch Cookbook",
   "author_name": [
@@ -61,7 +61,7 @@ PUT /store/book/3
   "long_description": "ElasticSearch is one of the most promising NoSQL technologies available and is built to provide a scalable search solution with built-in support for near real-time search and multi-tenancy."
 }
 
-PUT /store/book/4
+PUT /store/_doc/4
 {
   "title": "Elasticsearch in Action",
   "author_name": [
@@ -80,7 +80,7 @@ PUT /store/book/4
   "long_description": "Elasticsearch makes it easy to add efficient and scalable searches to enterprise applications. Busy administrators and developers love this open source real-time search and analytics engine because they can simply install it, make a few tweaks, and go on with their work. Elasticsearch is miles deep, so once it's up and running, it can be used to build nearly any custom search solution imaginable."
 }
 
-PUT /store/book/5
+PUT /store/_doc/5
 {
   "title": "The Logstash Book",
   "author_name": [
@@ -102,7 +102,7 @@ PUT /store/book/5
 
 
 # Empty search
-GET /store/book/_search
+GET /store/_search
 {
 }
 
@@ -144,7 +144,7 @@ GET /store/_search
 }
 
 # Multiple match
-GET /store/book/_search
+GET /store/_search
 {
   "query": {
     "multi_match": {
@@ -158,7 +158,7 @@ GET /store/book/_search
 }
 
 #Search with a single term
-GET /store/book/_search
+GET /store/_search
 {
   "query": {
     "term": {
@@ -171,7 +171,7 @@ GET /store/book/_search
 
 
 # Search with multiple term
-GET /store/book/_search
+GET /store/_search
 {
   "query": {
     "terms": {
@@ -218,7 +218,7 @@ GET /store/_search
 }
 
 #Query with range
-GET /store/book/_search
+GET /store/_search
 {
   "query": {
     "range": {
@@ -232,7 +232,7 @@ GET /store/book/_search
 
 
 #Paging
-GET /store/book/_search
+GET /store/_search
 {
   "from": 0,
   "size": 2
@@ -240,7 +240,7 @@ GET /store/book/_search
 
 
 #Sorting
-GET /store/book/_search
+GET /store/_search
 {
   "sort": [
     {
@@ -252,7 +252,7 @@ GET /store/book/_search
 }
 
 #Multiple sorting
-GET /store/book/_search
+GET /store/_search
 {
   "sort": [
     {
@@ -269,7 +269,7 @@ GET /store/book/_search
 }
 
 
-GET /store/book/_search
+GET /store/_search
 {
   "from": 0,
   "query": {
