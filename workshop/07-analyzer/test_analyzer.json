@@ -27,27 +27,31 @@ POST _analyze
 
 ##### Custom mapping with Analyzer  #####
 
+DELETE my_index
+
 PUT my_index
 {
   "mappings": {
-    "_doc": {
-      "properties": {
-        "title": {
-          "type":     "text",
-          "analyzer": "standard"
-        }
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "standard"
       }
     }
   }
 }
 
+GET my_index
+
 ##### Custom Analyzer #####
+DELETE my_index
+
 PUT my_index
 {
   "settings": {
     "analysis": {
       "analyzer": {
-        "std_folded": { 
+        "std_folded": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
@@ -59,16 +63,16 @@ PUT my_index
     }
   },
   "mappings": {
-    "_doc": {
-      "properties": {
-        "my_text": {
-          "type": "text",
-          "analyzer": "std_folded" 
-        }
+    "properties": {
+      "my_text": {
+        "type": "text",
+        "analyzer": "std_folded"
       }
     }
   }
 }
+
+GET my_index
 
 GET my_index/_analyze 
 {
