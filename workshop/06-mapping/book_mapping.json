@@ -4,12 +4,12 @@ GET store/_mapping/book
 # Dynamic mapping
 DELETE sample
 
-POST sample/doc/1
+POST sample/_doc/1
 {
   "name": "somkiat pui"
 }
 
-POST sample/doc/2
+POST sample/_doc/2
 {
   "name": "somkiatpui"
 }
@@ -33,11 +33,9 @@ DELETE  sample
 PUT sample
 {
   "mappings": {
-    "doc": {
-      "properties": {
-        "name": {
-          "type":  "keyword"
-        }
+    "properties": {
+      "name": {
+        "type": "keyword"
       }
     }
   }
@@ -63,12 +61,10 @@ DELETE  sample
 PUT sample
 {
   "mappings": {
-    "doc": {
-      "properties": {
-        "name": {
-          "type":  "text",
-          "index": false
-        }
+    "properties": {
+      "name": {
+        "type": "text",
+        "index": false
       }
     }
   }
