@@ -1,5 +1,5 @@
 # Aggregation  (data + aggregation) with term aggregation
-GET /store/book/_search
+GET /store/_search
 {
   "aggs": {
     "all_book_title": {
@@ -11,7 +11,7 @@ GET /store/book/_search
 }
 
 # Show only aggregation section
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -23,7 +23,7 @@ GET /store/book/_search
   }
 }
 
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -39,7 +39,7 @@ GET /store/book/_search
 }
 
 # Stats aggregation
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -53,7 +53,7 @@ GET /store/book/_search
 
 
 # Stats aggregation :: price stat
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -65,7 +65,7 @@ GET /store/book/_search
   }
 }
 
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -78,7 +78,7 @@ GET /store/book/_search
 }
 
 # Multiple aggregation type
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -96,7 +96,7 @@ GET /store/book/_search
 }
 
 # Missing aggregation
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -109,7 +109,7 @@ GET /store/book/_search
 }
 
 # Missing aggregation with information
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -129,7 +129,7 @@ GET /store/book/_search
 }
 
 # Price range
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -157,7 +157,7 @@ GET /store/book/_search
 
 
 # Order data by category
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
@@ -174,7 +174,7 @@ GET /store/book/_search
 
 
 #Multiple aggregation (bucket + metric)
-GET /store/book/_search
+GET /store/_search
 {
   "size": 0,
   "aggs": {
