@@ -1,0 +1,69 @@
+version: '3.7'
+services:
+
+  elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.1.1'
+    ports:
+      - "9200:9200"
+    environment:
+      - node.name=elasticsearch
+      - discovery.seed_hosts=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - logging-net
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 5   
+
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:7.1.1'
+    ports:
+      - "5601:5601"
+    environment:
+      - elasticsearch.url=http://elasticsearch:9200
+    networks:
+      - logging-net
+    depends_on:
+      - elasticsearch
+
+  fluentd:
+    image: fluentd-sample
+    ports:
+      - "24224:24224"
+    networks:
+      - logging-net
+    depends_on:  
+      - "elasticsearch"
+    volumes:
+      - ./fluentd/config:/fluentd/etc  
+  
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      - logging-net
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+    logging:
+      driver: fluentd  
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
+    depends_on:  
+      - "fluentd" 
+
+networks:
+  logging-net:
+
+volumes:
+  elasticsearch-vol: 
