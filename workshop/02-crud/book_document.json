@@ -1,6 +1,6 @@
 #### Create new document ####
 
-PUT /store/book/1
+PUT /store/_doc/1
 {
   "title": "Elasticsearch: The Definitive Guide",
   "author_name": [
@@ -19,7 +19,7 @@ PUT /store/book/1
   "detail": "Learn how to use Elasticsearch, an open source, distributed, RESTful search engine built on top of Apache Lucene. Each chapter in this book tackles a particular facet of Elasticsearch with separate sections for beginners more advanced programmers. If you’re a beginner, advanced techniques are not required reading, but you can revisit them once you have a solid understanding of the basics."
 }
 
-PUT /store/book/2
+PUT /store/_doc/2
 {
   "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
   "author_name": [
@@ -39,18 +39,18 @@ PUT /store/book/2
 
 #### Read documents ####
 
-GET /store/book/1
+GET /store/_doc/1
 
-GET /store/book/2
+GET /store/_doc/2
 
 
 #### Search documents with basic Search DSL ####
 
-GET /store/book/_search
+GET /store/_search
 
-GET /store/book/_search?q=title:Elasticsearch
+GET /store/_search?q=title:Elasticsearch
 
-GET /store/book/_search
+GET /store/_search
 {
         "query" : {
             "match" : {
@@ -61,7 +61,7 @@ GET /store/book/_search
 
 # Problem with Elasticsearch 6.0+
 # Reference :: https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-all-field.html
-GET /store/book/_search
+GET /store/_search
 {
         "query" : {
             "match" : {
@@ -96,7 +96,7 @@ GET store/_search
 
 # Search with phrase
 
-GET /store/book/_search
+GET /store/_search
 {
         "query" : {
             "match_phrase" : {
@@ -105,7 +105,7 @@ GET /store/book/_search
 } }
 
 # Search with highlight
-GET /store/book/_search
+GET /store/_search
 {
         "query" : {
             "match_phrase" : {
@@ -120,7 +120,7 @@ GET /store/book/_search
 }
 
 # Search with aggregation !!
-GET /store/book/_search
+GET /store/_search
 {
   "aggs": {
     "all_tags": {
@@ -132,7 +132,7 @@ GET /store/book/_search
 }
 
 
-GET /store/book/_search
+GET /store/_search
 {
   "query": {
     "match_phrase": {
@@ -151,7 +151,7 @@ GET /store/book/_search
 #### More operation ####
 
 #Automatic generate ID of document
-POST /store/book/
+POST /store/_doc/
 {
   "title": "Scrum: a Breathtakingly Brief and Agile Introduction",
   "author_name": [
@@ -172,10 +172,10 @@ POST /store/book/
 
 
 #Retrieving part of a document
-GET /store/book/1?_source=title,description
+GET /store/_doc/1?_source=title,description
 
 #Update whole document
-PUT /store/book/123
+PUT /store/_doc/123
 {
   "title": "Update",
   "author_name": [
@@ -188,10 +188,10 @@ PUT /store/book/123
   ]
 }
 
-GET /store/book/123
+GET /store/_doc/123
 
 #Partial update document
-POST /store/book/123/_update
+POST /store/_update/123
 {
   "doc": {
     "title": "partial update",
@@ -204,12 +204,14 @@ POST /store/book/123/_update
 }
 
 #Partial update with script
-POST /store/book/123/_update
+POST /store/_update/123
 {
   "script": "ctx._source.views+=1"
 }
 
-POST /store/book/123/_update
+GET /store/_doc/123
+
+POST /store/_update/123
 {
   "script": {
     "source": "ctx._source.views += params.count",
@@ -220,7 +222,7 @@ POST /store/book/123/_update
   }
 }
 
-POST /store/book/123/_update
+POST /store/_update/123
 {
   "script": {
     "source": "ctx._source.tag.add(params.new_tag)",
@@ -257,9 +259,5 @@ POST /store/book/_delete_by_query
   }
 }
 
-GET /store/book/_search
-{
-}
-
 #### Try to see mapping/schema of document (Learn more detail) ###
-GET /store/book/_mapping
+GET /store/_mapping
