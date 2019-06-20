@@ -36,7 +36,7 @@ services:
       - elasticsearch
 
   fluentd:
-    image: fluentd-sample
+    image: somkiat/fluentd-sample
     ports:
       - "24224:24224"
     networks:
@@ -47,7 +47,7 @@ services:
       - ./fluentd/config/fluent-springboot.conf:/fluentd/etc/fluent.conf 
   
   springboot:
-    image: springboot
+    image: somkiat/springboot
     ports:
       - "8080:8080"
     networks:
