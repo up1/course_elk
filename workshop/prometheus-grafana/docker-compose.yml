@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  hello-springboot:
+    image: somkiat/springboot
+    ports:
+      - 8080:8080
+  grafana:
+    image: grafana/grafana:6.2.4
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+
+  prometheus:
+    image: prom/prometheus:v2.10.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/prometheus

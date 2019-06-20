@@ -1,0 +1,17 @@
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 1m
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  - job_name: 'grafana'
+    scrape_interval: 1m
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['grafana:3000']
+
+  - job_name: 'hello-springboot'
+    scrape_interval: 1m
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['hello-springboot:8080']
