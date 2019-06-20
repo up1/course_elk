@@ -28,7 +28,7 @@ $/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch --no-
 $/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-concat --no-document
 ```
 
-2. Config Fluentd
+2. Config Fluentd (MacOS)
 
 Edit file `/etc/td-agent/td-agent.conf` 
 ```
@@ -42,6 +42,7 @@ $tail -100f /var/log/td-agent/td-agent.log
 
 3. Start FileBeat
 ```
+$cd fluentd
 $filebeat -e -c beat-demo.yml -d "publish"
 ```
 
