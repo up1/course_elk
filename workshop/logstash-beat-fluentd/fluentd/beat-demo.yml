@@ -8,8 +8,5 @@ filebeat.inputs:
   multiline.negate: true
   multiline.match: after
 
-# output.elasticsearch:
-#   hosts: ["localhost:9200"]
-
 output.logstash:
   hosts: ["localhost:5044"]
