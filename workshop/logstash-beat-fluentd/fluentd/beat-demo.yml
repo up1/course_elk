@@ -1,0 +1,15 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /Users/somkiat/data/slide/elasticsearch/software/elasticsearch-7.1.1/logs/elasticsearch.log
+
+  multiline.pattern: '^\['
+  multiline.negate: true
+  multiline.match: after
+
+# output.elasticsearch:
+#   hosts: ["localhost:9200"]
+
+output.logstash:
+  hosts: ["localhost:5044"]

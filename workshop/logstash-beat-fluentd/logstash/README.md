@@ -20,3 +20,33 @@ $filebeat -e -c beat-demo.yml -d "publish"
 ```
 
 ## Working with Fluentd
+
+1. Install plugins of Fluentd
+```
+$/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-beats --no-document
+$/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch --no-document
+$/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-concat --no-document
+```
+
+2. Config Fluentd
+
+Edit file `/etc/td-agent/td-agent.conf` 
+```
+// Reload config
+$sudo launchctl unload /Library/LaunchDaemons/td-agent.plist
+$sudo launchctl load /Library/LaunchDaemons/td-agent.plist
+
+//See log
+$tail -100f /var/log/td-agent/td-agent.log
+```
+
+3. Start FileBeat
+```
+$filebeat -e -c beat-demo.yml -d "publish"
+```
+
+
+Reference Websites
+* https://github.com/repeatedly/fluent-plugin-beats
+* https://github.com/uken/fluent-plugin-elasticsearch
+* https://github.com/fluent-plugins-nursery/fluent-plugin-concat
