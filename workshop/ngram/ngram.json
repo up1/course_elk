@@ -1,0 +1,197 @@
+## Workshop using N-gram tokenizer
+
+DELETE demo_suggestion
+
+## Update index setting
+## https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html
+
+DELETE demo_suggestion
+
+PUT demo_suggestion/
+{
+  "settings": {
+    "index": {
+      "max_ngram_diff": 50
+    },
+    "analysis": {
+      "analyzer": {
+        "autocomplete": {
+          "tokenizer": "my_tokenizer",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      },
+      "tokenizer": {
+        "my_tokenizer": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 20,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  }
+}
+
+GET /demo_suggestion/_analyze
+{
+    "analyzer": "autocomplete",
+    "text": "TV WALL HANGING M-CABLE MMOUNT-30A-1"
+}
+
+## Create field with custom analyzer
+
+PUT /demo_suggestion/_mapping/
+{
+  "properties": {
+      "search_data": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "fields": {
+            "raw": {
+              "type":  "keyword"
+            }
+        }
+      },
+      "group_name": {
+        "type": "keyword"
+      }
+    }
+}
+
+GET demo_suggestion
+
+## Indexing data to index
+POST demo_suggestion/_doc
+{
+    "search_data": "XTV HAIFAI",
+    "group_name": "brand",
+    "amount": 50
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "HAIFAI",
+    "group_name": "brand",
+    "amount": 100
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "HAI TV",
+    "group_name": "brand",
+    "amount": 200
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "new TV",
+    "group_name": "brand",
+    "amount": 300
+}
+
+
+POST demo_suggestion/_doc
+{
+    "search_data": "Wall Hanging",
+    "group_name": "catalog",
+    "amount": 100
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "Wall Hanging 2",
+    "group_name": "catalog",
+    "amount": 200
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "TV",
+    "group_name": "catalog",
+    "amount": 300
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "Wall Hanging 3",
+    "group_name": "catalog",
+    "amount": 300
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "TV WALL HANGING HAIFAI PST15",
+    "group_name": "item",
+    "amount": 100
+}
+
+POST demo_suggestion/_doc
+{
+    "search_data": "TV WALL HANGING M-CABLE MMOUNT-30A-1",
+    "group_name": "item",
+    "amount": 200
+}
+
+## Count data
+GET demo_suggestion/_count
+
+## Try to search data
+
+GET /demo_suggestion/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "search_data": {
+              "value": "tv"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+## Try to search data with aggragation
+
+GET /demo_suggestion/_search
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "term": {
+            "search_data": {
+              "value": "tv"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "group_name": {
+      "terms": {
+        "field": "group_name",
+        "size": 5
+      },
+      "aggs": {
+        "amount": {
+          "top_hits": {
+            "_source": ["search_data", "amount"],
+            "size": 5,
+            "sort": { "amount" : "desc" }
+          }
+        }
+      }
+    }
+  }
+}
