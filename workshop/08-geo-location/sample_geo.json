@@ -9,7 +9,6 @@ DELETE my_map
 PUT /my_map
 {
   "mappings": {
-    "city": {
       "properties": {
         "name": {
           "type": "text"
@@ -18,21 +17,20 @@ PUT /my_map
           "type": "geo_point"
         }
       }
-    }
   }
 }
 
 GET my_map/_mapping
 
 # Index 1 :: string format (lat, lon)
-PUT /my_map/city/1
+PUT /my_map/_doc/1
 {
   "name" : "Bangkok",
   "location" : "13.45, 100.35"
 }
 
 # Index 2 :: Object with lat, lon
-PUT /my_map/city/1
+PUT /my_map/_doc/1
 {
   "name" : "Bangkok",
   "location" : {
@@ -42,14 +40,14 @@ PUT /my_map/city/1
 }
 
 # Index 3 :: Array with [lon, lat]
-PUT /my_map/city/1
+PUT /my_map/_doc/1
 {
   "name" : "Bangkok",
   "location" : [100.35,13.45]
 }
 
 # Index 4 :: Geohash
-PUT /my_map/city/1
+PUT /my_map/_doc/1
 {
   "name" : "Bangkok",
   "location" : "w4rke82xumxr"
