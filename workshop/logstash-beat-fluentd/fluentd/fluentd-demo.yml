@@ -7,7 +7,7 @@
 
 <filter demo>
   @type parser
-  key_name log
+  key_name message
   <parse>
     @type regexp
     expression /^\[(?<timestamp>[^\]]*)\]\[(?<serverity>[^\]]*)\]\[(?<role>[^\]]*)\] \[(?<hostname>[^\]]*)\] (?<detail>.[\s\S]*)/
