@@ -1,5 +1,5 @@
 node.name: master
-cluster.name: demo
+cluster.name: elasticsearch
 node.master: true
 node.data: false
 node.ingest: false
