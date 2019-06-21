@@ -3,7 +3,10 @@ cluster.name: demo
 node.master: false
 node.data: false
 node.ingest: false
-network.host: 0.0.0.0
-discovery.zen.ping.unicast.hosts: ["10.148.0.2"]
+cluster.initial_master_nodes: localhost
 
 bootstrap.memory_lock: true
+
+path:
+    data: $ES_PATH/query
+    logs: $ES_PATH/query

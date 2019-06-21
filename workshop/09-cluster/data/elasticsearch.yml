@@ -4,7 +4,10 @@ node.master: false
 node.data: true
 node.ingest: false
 search.remote.connect: false
-network.host: 0.0.0.0
-discovery.zen.ping.unicast.hosts: ["10.148.0.2"]
+cluster.initial_master_nodes: localhost
 
 bootstrap.memory_lock: true
+
+path:
+    data: $ES_PATH/data
+    logs: $ES_PATH/data

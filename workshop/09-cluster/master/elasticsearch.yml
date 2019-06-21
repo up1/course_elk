@@ -4,6 +4,10 @@ node.master: true
 node.data: false
 node.ingest: false
 search.remote.connect: false
-network.host: 0.0.0.0
+cluster.initial_master_nodes: localhost
 
 bootstrap.memory_lock: true
+
+path:
+    data: $ES_PATH_CONF/master
+    logs: $ES_PATH_CONF/master
