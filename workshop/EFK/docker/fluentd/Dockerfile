@@ -5,6 +5,8 @@ RUN apk add --update --virtual .build-deps \
  && sudo gem install \
         fluent-plugin-elasticsearch \
  && sudo gem install \
+        fluent-plugin-beats \
+ && sudo gem install \
         fluent-plugin-concat \
  && sudo gem sources --clear-all \
  && apk del .build-deps \
