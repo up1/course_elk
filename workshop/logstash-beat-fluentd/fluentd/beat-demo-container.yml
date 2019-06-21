@@ -1,0 +1,12 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /logs/elasticsearch.log
+
+  multiline.pattern: '^\['
+  multiline.negate: true
+  multiline.match: after
+
+output.logstash:
+  hosts: ["fluentd:5044"]

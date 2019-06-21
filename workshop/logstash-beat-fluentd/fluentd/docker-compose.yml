@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.1.1
+    volumes:
+      - ./beat-demo-container.yml:/usr/share/filebeat/filebeat.yml
+      - /Users/somkiat/data/slide/elasticsearch/software/elasticsearch-7.1.1/logs/elasticsearch.log:/logs/elasticsearch.log
+    depends_on:
+      - fluentd
+
+  fluentd:
+    image: somkiat/fluentd-sample
+    volumes:
+      - ./fluentd-demo-container.yml:/fluentd/etc/fluent.conf
+      
+    
