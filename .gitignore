@@ -4,3 +4,4 @@ slide/*.key
 .DS_Store
 software/
 .vscode/
+*.keystore
