@@ -1,4 +1,4 @@
-node.name: master
+node.name: master2
 cluster.name: elasticsearch
 node.master: true
 node.data: true
@@ -9,5 +9,5 @@ cluster.initial_master_nodes: localhost
 bootstrap.memory_lock: true
 
 path:
-    data: $ES_PATH_CONF/master
-    logs: $ES_PATH_CONF/master
+    data: $ES_PATH_CONF/master2
+    logs: $ES_PATH_CONF/master2
