@@ -1,10 +1,10 @@
 node.name: master
 cluster.name: elasticsearch
 node.master: true
-node.data: true
+node.data: false
 node.ingest: false
 search.remote.connect: false
-cluster.initial_master_nodes: localhost
+# cluster.initial_master_nodes: localhost
 
 bootstrap.memory_lock: true
 

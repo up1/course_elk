@@ -1,7 +1,7 @@
 node.name: master2
 cluster.name: elasticsearch
 node.master: true
-node.data: true
+node.data: false
 node.ingest: false
 search.remote.connect: false
 cluster.initial_master_nodes: localhost
