@@ -1,6 +1,5 @@
 # ELK stack
 
-
 * Overview ELK stack
   * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
   * [Logstash](https://www.elastic.co/products/logstash)
