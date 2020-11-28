@@ -1,4 +1,4 @@
-# ELK stack
+# Course :: ELK stack
 
 * Overview ELK stack
   * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
