@@ -1,6 +1,9 @@
 # Course :: ELK stack
 
-* Overview ELK stack
+## Resources
+* [Note from CNX 2020/11/29](https://github.com/up1/note-elk-20201129)
+
+## Softwares
   * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
   * [Logstash](https://www.elastic.co/products/logstash)
   * [Kibana](https://www.elastic.co/products/kibana)
@@ -9,7 +12,7 @@
   * [Prometheus](https://prometheus.io/)
   * [Grafana](https://grafana.com/)
 
-## Elasticsearch
+## Course Outline
 
 * Basic concepts
 * Setup ELK stack
