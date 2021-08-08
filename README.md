@@ -1,19 +1,16 @@
 # Course :: ELK stack
 
-## Resources
-* [Note from CNX 2020/11/29](https://github.com/up1/note-elk-20201129)
-
-## Softwares
-  * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
-  * [Logstash](https://www.elastic.co/products/logstash)
-  * [Kibana](https://www.elastic.co/products/kibana)
-  * [Beat](https://www.elastic.co/products/beats)
+## Softwares in workshop
+  * ELK Stack
+    * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
+    * [Logstash](https://www.elastic.co/products/logstash)
+    * [Kibana](https://www.elastic.co/products/kibana)
+    * [Beat](https://www.elastic.co/products/beats)
   * [Fluentd](https://www.fluentd.org/)
   * [Prometheus](https://prometheus.io/)
   * [Grafana](https://grafana.com/)
 
 ## Course Outline
-
 * Basic concepts
 * Setup ELK stack
   * Elasticsearch
@@ -66,8 +63,8 @@
 * Collect metric data with [Prometheus](https://prometheus.io/)
 * Visualize data from Prometheous with [Grafana](https://grafana.com/)
 
-## Workshop
-
+## List of past workshops
+* [Note from CNX 2020/11/29](https://github.com/up1/note-elk-20201129)
 
 ## References
 * [First version of slide and workshop](https://github.com/up1/elasticsearch_workshop)
