@@ -59,17 +59,6 @@ GET /store/_search
         }
 }
 
-# Problem with Elasticsearch 6.0+
-# Reference :: https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-all-field.html
-GET /store/_search
-{
-        "query" : {
-            "match" : {
-                "_all" : "Elasticsearch"
-            }
-        }
-}
-
 # Search and filter !!
 GET store/_search
 {
