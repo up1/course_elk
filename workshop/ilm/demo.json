@@ -1,0 +1,99 @@
+### Step 1 :: Delete index and policy
+
+DELETE demo*
+DELETE _ilm/policy/demo
+
+### Step 2 :: Create policy (Hot phase + rollover)
+
+## 1. Rollover with max size and max age
+
+PUT _ilm/policy/demo
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_size": "100mb",
+            "max_age": "1d"
+          }
+        }
+      }
+    }
+  }
+}
+
+## 2. Rollover with max documents
+
+PUT _ilm/policy/demo
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "actions": {
+          "rollover": {
+            "max_docs": 10
+          }
+        }
+      }
+    }
+  }
+}
+
+GET _ilm/policy/demo
+
+### Step 3 :: Config policy to index
+
+PUT demo-000001
+{
+  "aliases": {
+    "demo": {
+      "is_write_index": true
+    }
+  }
+}
+
+PUT demo-000001/_settings
+{
+  "index": {
+    "lifecycle": {
+      "name": "demo",
+      "rollover_alias": "demo"
+    }
+  }
+}
+
+
+### Step 4 :: Verify setting
+
+GET demo-000001/_settings
+GET demo-000001/_ilm/explain
+GET _alias/demo
+
+### Step 5 :: Indexing data
+
+POST demo-000001/_doc
+{
+	"data": "demo"
+}
+
+##Check Index !!!
+
+GET _cat/indices?v
+
+
+### Reference (Refresh every 10 minutes)
+indices.lifecycle.poll_interval: 10m
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-settings.html#_index_level_settings
+https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-settings.html
+
+### Change config in cluster level
+
+PUT _cluster/settings
+{
+  "transient": {
+    "indices.lifecycle.poll_interval": "1m" 
+  }
+}
