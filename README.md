@@ -1,4 +1,4 @@
-# Course :: ELK stack
+# Course : ELK stack
 
 ## Softwares in workshop
   * ELK Stack
