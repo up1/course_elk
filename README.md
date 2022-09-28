@@ -1,6 +1,6 @@
 # Course : ELK stack
 
-## Softwares in workshop
+## List of softwares
   * ELK Stack
     * [Elasticsearch](https://www.elastic.co/products/elasticsearch)
     * [Logstash](https://www.elastic.co/products/logstash)
