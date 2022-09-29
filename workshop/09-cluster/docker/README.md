@@ -32,3 +32,10 @@ ip         heap.percent ram.percent cpu load_1m load_5m load_15m node.role   mas
 * w = data_warm
 * v = voting_only
 * `-` = coordinating
+
+
+## References
+* [Set up a cluster for high availability](https://www.elastic.co/guide/en/elasticsearch/reference/current/high-availability.html)
+* [Plan for production](https://www.elastic.co/guide/en/cloud/current/ec-planning.html)
+* [Designing for resilience](https://www.elastic.co/guide/en/elasticsearch/reference/current/high-availability-cluster-design.html)
+
