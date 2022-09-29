@@ -16,6 +16,7 @@
   * Elasticsearch
   * Kibana
   * Explore cluster
+    * [Cluster with Docker](https://github.com/up1/course_elk/tree/master/workshop/09-cluster/docker)
   * Cluster/Node/Index/Document/Field
   * Compare with RDBMS
 * CRUD operation with Elasticsearch
