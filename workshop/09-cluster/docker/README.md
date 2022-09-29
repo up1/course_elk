@@ -1,4 +1,4 @@
-## Create Elasticsearch cluster with Docker
+## Create [Elasticsearch cluster with Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
 
 ```
 $docker-compose up -d
